@@ -242,7 +242,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
         <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
           <Link href="/" className="flex items-center space-x-2">
             <Landmark className="h-8 w-8 text-blue-600" />
-            <span className="text-2xl font-bold text-gray-900">FinanceHub</span>
+            <span className="text-2xl font-bold text-gray-900">Equivion</span>
           </Link>
           <Link
             href="/#contact"
@@ -400,7 +400,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                   </div>
                   <div className="flex items-center gap-3 text-gray-700">
                     <Mail className="h-5 w-5 text-blue-600" />
-                    <span>info@financehub.com</span>
+                    <span>info@equivion.com</span>
                   </div>
                 </div>
               </div>
@@ -440,7 +440,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
             <div>
               <div className="flex items-center space-x-2 mb-4">
                 <Landmark className="h-6 w-6" />
-                <span className="text-xl font-bold">FinanceHub</span>
+                <span className="text-xl font-bold">Equivion</span>
               </div>
               <p className="text-gray-400">
                 Your trusted partner for all financial needs.
@@ -466,13 +466,13 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
               <h4 className="font-bold mb-4">Contact</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>+91 98765 43210</li>
-                <li>info@financehub.com</li>
+                <li>info@equivion.com</li>
                 <li>Mumbai, India</li>
               </ul>
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 FinanceHub. All rights reserved.</p>
+            <p>&copy; 2024 Equivion. All rights reserved.</p>
           </div>
         </div>
       </footer>
