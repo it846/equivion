@@ -236,7 +236,7 @@ export default function HomePage() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="bg-blue-600 text-white py-16">
+      <section className="bg-blue-600 text-white py-20 mt-0">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">Why Choose Us?</h2>
           <div className="grid md:grid-cols-4 gap-8">
@@ -273,48 +273,67 @@ export default function HomePage() {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="container mx-auto px-4 py-20">
-        <h2 className="text-4xl font-bold text-center text-gray-900 mb-4">
-          Our Services
-        </h2>
-        <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-          Choose from our wide range of financial products designed to meet your specific needs
-        </p>
+      <section id="services" className="py-24 bg-gradient-to-b from-white to-blue-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-bold text-gray-900 mb-4">
+              Our Services
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Choose from our wide range of financial products designed to meet your specific needs
+            </p>
+          </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service) => {
-            const Icon = service.icon;
-            return (
-              <div
-                key={service.id}
-                className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition p-8 border border-gray-100"
-              >
-                <div className="bg-blue-100 w-14 h-14 rounded-lg flex items-center justify-center mb-4">
-                  <Icon className="h-7 w-7 text-blue-600" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                  {service.title}
-                </h3>
-                <p className="text-gray-600 mb-4">
-                  {service.description}
-                </p>
-                <ul className="space-y-2 mb-6">
-                  {service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center text-gray-700">
-                      <CheckCircle2 className="h-5 w-5 text-green-500 mr-2" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  href={`/services/${service.id}`}
-                  className="text-blue-600 font-semibold hover:text-blue-700 flex items-center gap-1"
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {services.map((service, index) => {
+              const Icon = service.icon;
+              const gradients = [
+                "from-blue-500 to-blue-600",
+                "from-purple-500 to-purple-600",
+                "from-green-500 to-green-600",
+                "from-orange-500 to-orange-600",
+                "from-pink-500 to-pink-600",
+                "from-indigo-500 to-indigo-600"
+              ];
+              return (
+                <div
+                  key={service.id}
+                  className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-blue-200 hover:-translate-y-2"
                 >
-                  Learn More <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
-            );
-          })}
+                  {/* Gradient Header */}
+                  <div className={`bg-gradient-to-r ${gradients[index]} p-6 text-white`}>
+                    <div className="bg-white/20 backdrop-blur-sm w-16 h-16 rounded-xl flex items-center justify-center mb-4">
+                      <Icon className="h-8 w-8" />
+                    </div>
+                    <h3 className="text-2xl font-bold mb-2">
+                      {service.title}
+                    </h3>
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-6">
+                    <p className="text-gray-600 mb-6 leading-relaxed">
+                      {service.description}
+                    </p>
+                    <ul className="space-y-3 mb-6">
+                      {service.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-center text-gray-700">
+                          <CheckCircle2 className="h-5 w-5 text-green-500 mr-3 flex-shrink-0" />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      href={`/services/${service.id}`}
+                      className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 transition group-hover:gap-3"
+                    >
+                      Learn More <ArrowRight className="h-5 w-5" />
+                    </Link>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
