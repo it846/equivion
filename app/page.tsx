@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import {
   Building2,
   User,
@@ -10,7 +13,9 @@ import {
   CheckCircle2,
   Phone,
   Mail,
-  ChevronDown
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react";
 
 const services = [
@@ -58,7 +63,53 @@ const services = [
   }
 ];
 
+const heroSlides = [
+  {
+    id: 1,
+    title: "Turn Your Dreams Into Reality",
+    subtitle: "Get instant loan approval with competitive rates",
+    description: "Whether it's a new home, car, or business - we're here to help you achieve your goals.",
+    cta: "Apply Now",
+    bgGradient: "from-blue-600 to-blue-800",
+    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&h=600&fit=crop"
+  },
+  {
+    id: 2,
+    title: "Business Growth Made Easy",
+    subtitle: "Fuel your business with flexible financing",
+    description: "Quick approval, minimal documentation, and competitive rates for your business expansion.",
+    cta: "Explore Business Loans",
+    bgGradient: "from-purple-600 to-purple-800",
+    image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1200&h=600&fit=crop"
+  },
+  {
+    id: 3,
+    title: "Your Dream Home Awaits",
+    subtitle: "Affordable home loans with low interest rates",
+    description: "Make your dream of owning a home come true with our hassle-free home loan solutions.",
+    cta: "Get Home Loan",
+    bgGradient: "from-green-600 to-green-800",
+    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&h=600&fit=crop"
+  }
+];
+
 export default function HomePage() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+  };
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       {/* Header/Navbar */}
@@ -101,28 +152,78 @@ export default function HomePage() {
         </nav>
       </header>
 
-      {/* Hero Section */}
-      <section className="container mx-auto px-4 py-20 text-center">
-        <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-          Your Trusted Financial Partner
-        </h1>
-        <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-          Get instant approval on loans with competitive rates and flexible terms.
-          We make financing simple and accessible for everyone.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link
-            href="#services"
-            className="bg-blue-600 text-white px-8 py-4 rounded-full hover:bg-blue-700 transition text-lg font-semibold flex items-center justify-center gap-2"
+      {/* Hero Slider Section */}
+      <section className="relative h-[600px] overflow-hidden">
+        {heroSlides.map((slide, index) => (
+          <div
+            key={slide.id}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              index === currentSlide ? "opacity-100" : "opacity-0"
+            }`}
           >
-            Explore Services <ArrowRight className="h-5 w-5" />
-          </Link>
-          <Link
-            href="#contact"
-            className="bg-white text-blue-600 border-2 border-blue-600 px-8 py-4 rounded-full hover:bg-blue-50 transition text-lg font-semibold"
-          >
-            Get Started
-          </Link>
+            {/* Background Image with Overlay */}
+            <div
+              className="absolute inset-0 bg-cover bg-center"
+              style={{
+                backgroundImage: `url(${slide.image})`,
+              }}
+            >
+              <div className={`absolute inset-0 bg-gradient-to-r ${slide.bgGradient} opacity-90`}></div>
+            </div>
+
+            {/* Content */}
+            <div className="relative h-full flex items-center">
+              <div className="container mx-auto px-4">
+                <div className="max-w-3xl text-white">
+                  <p className="text-xl md:text-2xl mb-4 font-semibold opacity-90">
+                    {slide.subtitle}
+                  </p>
+                  <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                    {slide.title}
+                  </h1>
+                  <p className="text-lg md:text-xl mb-8 opacity-90 max-w-2xl">
+                    {slide.description}
+                  </p>
+                  <Link
+                    href="#services"
+                    className="inline-flex items-center gap-2 bg-white text-blue-600 px-8 py-4 rounded-full hover:bg-blue-50 transition text-lg font-semibold shadow-lg"
+                  >
+                    {slide.cta} <ArrowRight className="h-5 w-5" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+
+        {/* Navigation Arrows */}
+        <button
+          onClick={prevSlide}
+          className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-sm text-white p-3 rounded-full transition z-10"
+          aria-label="Previous slide"
+        >
+          <ChevronLeft className="h-6 w-6" />
+        </button>
+        <button
+          onClick={nextSlide}
+          className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-sm text-white p-3 rounded-full transition z-10"
+          aria-label="Next slide"
+        >
+          <ChevronRight className="h-6 w-6" />
+        </button>
+
+        {/* Slide Indicators */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+          {heroSlides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`h-2 rounded-full transition-all ${
+                index === currentSlide ? "w-8 bg-white" : "w-2 bg-white/50"
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
         </div>
       </section>
 
