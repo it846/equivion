@@ -9,7 +9,8 @@ import {
   ArrowRight,
   CheckCircle2,
   Phone,
-  Mail
+  Mail,
+  ChevronDown
 } from "lucide-react";
 
 const services = [
@@ -67,8 +68,27 @@ export default function HomePage() {
             <Landmark className="h-8 w-8 text-blue-600" />
             <span className="text-2xl font-bold text-gray-900">Equivion</span>
           </div>
-          <div className="hidden md:flex space-x-6">
-            <Link href="#services" className="text-gray-600 hover:text-blue-600 transition">Services</Link>
+          <div className="hidden md:flex space-x-6 items-center">
+            <div className="relative group">
+              <button className="text-gray-600 hover:text-blue-600 transition flex items-center gap-1">
+                Services
+                <ChevronDown className="h-4 w-4" />
+              </button>
+              <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <div className="py-2">
+                  {services.map((service) => (
+                    <Link
+                      key={service.id}
+                      href={`/services/${service.id}`}
+                      className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+                    >
+                      <div className="font-semibold">{service.title}</div>
+                      <div className="text-sm text-gray-500 truncate">{service.description.substring(0, 50)}...</div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
             <Link href="#about" className="text-gray-600 hover:text-blue-600 transition">About</Link>
             <Link href="#contact" className="text-gray-600 hover:text-blue-600 transition">Contact</Link>
           </div>

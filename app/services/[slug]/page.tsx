@@ -10,8 +10,19 @@ import {
   CheckCircle2,
   Phone,
   Mail,
-  Calculator
+  Calculator,
+  ChevronDown
 } from "lucide-react";
+
+// Services list for navigation
+const servicesList = [
+  { id: "business-loan", title: "Business Loan", description: "Fuel your business growth" },
+  { id: "personal-loan", title: "Personal Loan", description: "Get instant funds" },
+  { id: "balance-transfer", title: "Balance Transfer", description: "Save on interest" },
+  { id: "car-loan", title: "Car Loan", description: "Drive your dream car" },
+  { id: "home-loan", title: "Home Loan", description: "Make your dream home reality" },
+  { id: "loan-against-property", title: "Loan Against Property", description: "Unlock property value" }
+];
 
 // Service data
 const servicesData: Record<string, any> = {
@@ -238,12 +249,36 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       {/* Header */}
-      <header className="bg-white shadow-sm">
+      <header className="bg-white shadow-sm sticky top-0 z-50">
         <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
           <Link href="/" className="flex items-center space-x-2">
             <Landmark className="h-8 w-8 text-blue-600" />
             <span className="text-2xl font-bold text-gray-900">Equivion</span>
           </Link>
+          <div className="hidden md:flex space-x-6 items-center">
+            <div className="relative group">
+              <button className="text-gray-600 hover:text-blue-600 transition flex items-center gap-1">
+                Services
+                <ChevronDown className="h-4 w-4" />
+              </button>
+              <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <div className="py-2">
+                  {servicesList.map((svc) => (
+                    <Link
+                      key={svc.id}
+                      href={`/services/${svc.id}`}
+                      className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+                    >
+                      <div className="font-semibold">{svc.title}</div>
+                      <div className="text-sm text-gray-500">{svc.description}</div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <Link href="/#about" className="text-gray-600 hover:text-blue-600 transition">About</Link>
+            <Link href="/#contact" className="text-gray-600 hover:text-blue-600 transition">Contact</Link>
+          </div>
           <Link
             href="/#contact"
             className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition"
