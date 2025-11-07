@@ -236,7 +236,7 @@ export default function HomePage() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="bg-blue-600 text-white py-20 mt-0">
+      <section className="bg-blue-600 text-white py-20 mt-16 border-t-4 border-blue-700 shadow-2xl">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">Why Choose Us?</h2>
           <div className="grid md:grid-cols-4 gap-8">
