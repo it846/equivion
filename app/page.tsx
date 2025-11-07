@@ -72,7 +72,7 @@ const heroSlides = [
     subtitle: "Get instant loan approval with competitive rates",
     description: "Whether it's a new home, car, or business - we're here to help you achieve your goals.",
     cta: "Apply Now",
-    bgGradient: "from-blue-600 to-blue-800",
+    bgGradient: "from-slate-900 via-teal-900 to-slate-900",
     image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&h=600&fit=crop"
   },
   {
@@ -81,7 +81,7 @@ const heroSlides = [
     subtitle: "Fuel your business with flexible financing",
     description: "Quick approval, minimal documentation, and competitive rates for your business expansion.",
     cta: "Explore Business Loans",
-    bgGradient: "from-purple-600 to-purple-800",
+    bgGradient: "from-slate-900 via-cyan-900 to-slate-900",
     image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1200&h=600&fit=crop"
   },
   {
@@ -90,7 +90,7 @@ const heroSlides = [
     subtitle: "Affordable home loans with low interest rates",
     description: "Make your dream of owning a home come true with our hassle-free home loan solutions.",
     cta: "Get Home Loan",
-    bgGradient: "from-green-600 to-green-800",
+    bgGradient: "from-slate-900 via-emerald-900 to-slate-900",
     image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&h=600&fit=crop"
   }
 ];
@@ -113,33 +113,36 @@ export default function HomePage() {
     setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
   };
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       {/* Header/Navbar */}
-      <header className="bg-white shadow-sm sticky top-0 z-50">
+      <header className="bg-slate-900/95 backdrop-blur-md border-b border-teal-500/20 shadow-lg sticky top-0 z-50">
         <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <Link href="/" className="flex items-center space-x-3">
-            <Image
-              src="/logo.jpeg"
-              alt="Equivion LLP Logo"
-              width={50}
-              height={50}
-              className="object-contain"
-            />
-            <span className="text-2xl font-bold text-gray-900">Equivion</span>
+          <Link href="/" className="flex items-center space-x-3 group">
+            <div className="relative">
+              <Image
+                src="/logo.jpeg"
+                alt="Equivion LLP Logo"
+                width={50}
+                height={50}
+                className="object-contain transition-transform group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-teal-400/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            </div>
+            <span className="text-2xl font-bold bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">Equivion</span>
           </Link>
           <div className="hidden md:flex space-x-6 items-center">
             <div className="relative group">
-              <button className="text-gray-600 hover:text-blue-600 transition flex items-center gap-1">
+              <button className="text-gray-300 hover:text-teal-400 transition flex items-center gap-1 font-medium">
                 Services
                 <ChevronDown className="h-4 w-4" />
               </button>
-              <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div className="absolute top-full left-0 mt-2 w-64 bg-slate-800 border border-teal-500/30 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
                 <div className="py-2">
                   {services.map((service) => (
                     <Link
                       key={service.id}
                       href={`/services/${service.id}`}
-                      className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+                      className="block px-4 py-3 text-gray-300 hover:bg-teal-500/10 hover:text-teal-400 transition border-l-2 border-transparent hover:border-teal-400"
                     >
                       <div className="font-semibold">{service.title}</div>
                       <div className="text-sm text-gray-500 truncate">{service.description.substring(0, 50)}...</div>
@@ -148,12 +151,12 @@ export default function HomePage() {
                 </div>
               </div>
             </div>
-            <Link href="#about" className="text-gray-600 hover:text-blue-600 transition">About</Link>
-            <Link href="#contact" className="text-gray-600 hover:text-blue-600 transition">Contact</Link>
+            <Link href="#about" className="text-gray-300 hover:text-teal-400 transition font-medium">About</Link>
+            <Link href="#contact" className="text-gray-300 hover:text-teal-400 transition font-medium">Contact</Link>
           </div>
           <Link
             href="#contact"
-            className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition"
+            className="bg-gradient-to-r from-teal-500 to-cyan-500 text-white px-6 py-2 rounded-full hover:from-teal-600 hover:to-cyan-600 transition shadow-lg shadow-teal-500/50 hover:shadow-teal-500/80 font-semibold"
           >
             Apply Now
           </Link>
@@ -194,7 +197,7 @@ export default function HomePage() {
                   </p>
                   <Link
                     href="#services"
-                    className="inline-flex items-center gap-2 bg-white text-blue-600 px-8 py-4 rounded-full hover:bg-blue-50 transition text-lg font-semibold shadow-lg"
+                    className="inline-flex items-center gap-2 bg-gradient-to-r from-teal-500 to-cyan-500 text-white px-8 py-4 rounded-full hover:from-teal-600 hover:to-cyan-600 transition text-lg font-semibold shadow-2xl shadow-teal-500/50 hover:shadow-teal-500/80 hover:scale-105 transform"
                   >
                     {slide.cta} <ArrowRight className="h-5 w-5" />
                   </Link>
@@ -236,50 +239,53 @@ export default function HomePage() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="bg-blue-600 text-white py-20 mt-16 border-t-4 border-blue-700 shadow-2xl">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Why Choose Us?</h2>
+      <section className="relative bg-gradient-to-br from-slate-800 via-slate-900 to-slate-800 text-white py-20 mt-0 border-t border-teal-500/20">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMtOS45NCAwLTE4IDguMDYtMTggMThzOC4wNiAxOCAxOCAxOCAxOC04LjA2IDE4LTE4LTguMDYtMTgtMTgtMTh6IiBzdHJva2U9IiMxNGI4YTYiIHN0cm9rZS13aWR0aD0iMC41IiBvcGFjaXR5PSIwLjEiLz48L2c+PC9zdmc+')] opacity-30"></div>
+        <div className="container mx-auto px-4 relative z-10">
+          <h2 className="text-4xl font-bold text-center mb-4 bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">Why Choose Equivion?</h2>
+          <p className="text-center text-gray-400 mb-12 max-w-2xl mx-auto">Experience the future of financial services with our cutting-edge solutions</p>
           <div className="grid md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="bg-white/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <CheckCircle2 className="h-8 w-8" />
+            <div className="text-center group hover:transform hover:scale-105 transition-all duration-300">
+              <div className="bg-gradient-to-br from-teal-500/20 to-cyan-500/20 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-teal-500/30 group-hover:border-teal-400 group-hover:shadow-lg group-hover:shadow-teal-500/50 transition-all">
+                <CheckCircle2 className="h-10 w-10 text-teal-400" />
               </div>
-              <h3 className="font-semibold text-lg mb-2">Quick Approval</h3>
-              <p className="text-blue-100">Get approved in minutes, not days</p>
+              <h3 className="font-semibold text-xl mb-2 text-white">Quick Approval</h3>
+              <p className="text-gray-400 group-hover:text-gray-300 transition">Get approved in minutes, not days</p>
             </div>
-            <div className="text-center">
-              <div className="bg-white/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <CheckCircle2 className="h-8 w-8" />
+            <div className="text-center group hover:transform hover:scale-105 transition-all duration-300">
+              <div className="bg-gradient-to-br from-cyan-500/20 to-blue-500/20 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-cyan-500/30 group-hover:border-cyan-400 group-hover:shadow-lg group-hover:shadow-cyan-500/50 transition-all">
+                <CheckCircle2 className="h-10 w-10 text-cyan-400" />
               </div>
-              <h3 className="font-semibold text-lg mb-2">Best Rates</h3>
-              <p className="text-blue-100">Competitive interest rates in the market</p>
+              <h3 className="font-semibold text-xl mb-2 text-white">Best Rates</h3>
+              <p className="text-gray-400 group-hover:text-gray-300 transition">Competitive interest rates in the market</p>
             </div>
-            <div className="text-center">
-              <div className="bg-white/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <CheckCircle2 className="h-8 w-8" />
+            <div className="text-center group hover:transform hover:scale-105 transition-all duration-300">
+              <div className="bg-gradient-to-br from-emerald-500/20 to-teal-500/20 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-emerald-500/30 group-hover:border-emerald-400 group-hover:shadow-lg group-hover:shadow-emerald-500/50 transition-all">
+                <CheckCircle2 className="h-10 w-10 text-emerald-400" />
               </div>
-              <h3 className="font-semibold text-lg mb-2">Minimal Paperwork</h3>
-              <p className="text-blue-100">Simple documentation process</p>
+              <h3 className="font-semibold text-xl mb-2 text-white">Minimal Paperwork</h3>
+              <p className="text-gray-400 group-hover:text-gray-300 transition">Simple documentation process</p>
             </div>
-            <div className="text-center">
-              <div className="bg-white/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <CheckCircle2 className="h-8 w-8" />
+            <div className="text-center group hover:transform hover:scale-105 transition-all duration-300">
+              <div className="bg-gradient-to-br from-blue-500/20 to-indigo-500/20 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-blue-500/30 group-hover:border-blue-400 group-hover:shadow-lg group-hover:shadow-blue-500/50 transition-all">
+                <CheckCircle2 className="h-10 w-10 text-blue-400" />
               </div>
-              <h3 className="font-semibold text-lg mb-2">Expert Support</h3>
-              <p className="text-blue-100">Dedicated relationship managers</p>
+              <h3 className="font-semibold text-xl mb-2 text-white">Expert Support</h3>
+              <p className="text-gray-400 group-hover:text-gray-300 transition">Dedicated relationship managers</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-24 bg-gradient-to-b from-white to-blue-50">
-        <div className="container mx-auto px-4">
+      <section id="services" className="py-24 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
+        <div className="absolute inset-0 bg-grid-slate-700/25 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.5))] bg-top"></div>
+        <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-teal-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">
               Our Services
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
               Choose from our wide range of financial products designed to meet your specific needs
             </p>
           </div>
@@ -288,44 +294,53 @@ export default function HomePage() {
             {services.map((service, index) => {
               const Icon = service.icon;
               const gradients = [
-                "from-blue-500 to-blue-600",
-                "from-purple-500 to-purple-600",
-                "from-green-500 to-green-600",
-                "from-orange-500 to-orange-600",
-                "from-pink-500 to-pink-600",
-                "from-indigo-500 to-indigo-600"
+                "from-teal-500 to-cyan-600",
+                "from-purple-500 to-pink-600",
+                "from-emerald-500 to-teal-600",
+                "from-orange-500 to-red-600",
+                "from-blue-500 to-indigo-600",
+                "from-violet-500 to-purple-600"
+              ];
+              const glowColors = [
+                "shadow-teal-500/50",
+                "shadow-purple-500/50",
+                "shadow-emerald-500/50",
+                "shadow-orange-500/50",
+                "shadow-blue-500/50",
+                "shadow-violet-500/50"
               ];
               return (
                 <div
                   key={service.id}
-                  className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-blue-200 hover:-translate-y-2"
+                  className="group bg-slate-800/50 backdrop-blur-sm rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-700 hover:border-teal-500/50 hover:-translate-y-2"
                 >
                   {/* Gradient Header */}
-                  <div className={`bg-gradient-to-r ${gradients[index]} p-6 text-white`}>
-                    <div className="bg-white/20 backdrop-blur-sm w-16 h-16 rounded-xl flex items-center justify-center mb-4">
+                  <div className={`bg-gradient-to-r ${gradients[index]} p-6 text-white relative`}>
+                    <div className="absolute inset-0 bg-black/20"></div>
+                    <div className={`relative bg-white/10 backdrop-blur-md w-16 h-16 rounded-xl flex items-center justify-center mb-4 border border-white/20 group-hover:scale-110 transition-transform group-hover:${glowColors[index]}`}>
                       <Icon className="h-8 w-8" />
                     </div>
-                    <h3 className="text-2xl font-bold mb-2">
+                    <h3 className="text-2xl font-bold mb-2 relative">
                       {service.title}
                     </h3>
                   </div>
 
                   {/* Content */}
-                  <div className="p-6">
-                    <p className="text-gray-600 mb-6 leading-relaxed">
+                  <div className="p-6 bg-gradient-to-b from-slate-800/80 to-slate-900/80">
+                    <p className="text-gray-300 mb-6 leading-relaxed">
                       {service.description}
                     </p>
                     <ul className="space-y-3 mb-6">
                       {service.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-center text-gray-700">
-                          <CheckCircle2 className="h-5 w-5 text-green-500 mr-3 flex-shrink-0" />
+                        <li key={idx} className="flex items-center text-gray-400 group-hover:text-gray-300 transition">
+                          <CheckCircle2 className="h-5 w-5 text-teal-400 mr-3 flex-shrink-0" />
                           <span>{feature}</span>
                         </li>
                       ))}
                     </ul>
                     <Link
                       href={`/services/${service.id}`}
-                      className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 transition group-hover:gap-3"
+                      className="inline-flex items-center gap-2 text-teal-400 font-semibold hover:text-teal-300 transition group-hover:gap-3"
                     >
                       Learn More <ArrowRight className="h-5 w-5" />
                     </Link>
