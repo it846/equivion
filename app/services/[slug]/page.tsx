@@ -229,15 +229,16 @@ const servicesData: Record<string, any> = {
   }
 };
 
-export default function ServicePage({ params }: { params: { slug: string } }) {
-  const service = servicesData[params.slug];
+export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const service = servicesData[slug];
 
   if (!service) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-4xl font-bold mb-4">Service Not Found</h1>
-          <Link href="/" className="text-blue-600 hover:underline">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent mb-4">Service Not Found</h1>
+          <Link href="/" className="text-teal-400 hover:text-teal-300 transition">
             Return to Home
           </Link>
         </div>
@@ -248,33 +249,43 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
   const Icon = service.icon;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white shadow-sm sticky top-0 z-50">
+      <header className="bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm sticky top-0 z-50">
         <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <Link href="/" className="flex items-center space-x-3">
+          <Link href="/" className="flex items-center space-x-3 group">
             <Image
               src="/logo.jpeg"
               alt="Equivion LLP Logo"
               width={50}
               height={50}
-              className="object-contain"
+              className="object-contain transition-transform group-hover:scale-110 group-hover:rotate-6"
             />
-            <span className="text-2xl font-bold text-gray-900">Equivion</span>
+            <div className="relative">
+              <span
+                className="text-2xl font-bold text-green-600 transition-all duration-300 tracking-wider uppercase"
+                style={{
+                  textShadow: '2px 2px 0 rgba(34, 197, 94, 0.2)',
+                  WebkitTextStroke: '1px rgba(34, 197, 94, 0.3)'
+                }}
+              >
+                Equivion
+              </span>
+            </div>
           </Link>
           <div className="hidden md:flex space-x-6 items-center">
             <div className="relative group">
-              <button className="text-gray-600 hover:text-blue-600 transition flex items-center gap-1">
+              <button className="text-gray-700 hover:text-teal-600 transition flex items-center gap-1 font-medium">
                 Services
                 <ChevronDown className="h-4 w-4" />
               </button>
-              <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div className="absolute top-full left-0 mt-2 w-64 bg-white border border-gray-200 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
                 <div className="py-2">
                   {servicesList.map((svc) => (
                     <Link
                       key={svc.id}
                       href={`/services/${svc.id}`}
-                      className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+                      className="block px-4 py-3 text-gray-700 hover:bg-teal-50 hover:text-teal-600 transition border-l-2 border-transparent hover:border-teal-500"
                     >
                       <div className="font-semibold">{svc.title}</div>
                       <div className="text-sm text-gray-500">{svc.description}</div>
@@ -283,12 +294,12 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                 </div>
               </div>
             </div>
-            <Link href="/#about" className="text-gray-600 hover:text-blue-600 transition">About</Link>
-            <Link href="/#contact" className="text-gray-600 hover:text-blue-600 transition">Contact</Link>
+            <Link href="/#about" className="text-gray-700 hover:text-teal-600 transition font-medium">About</Link>
+            <Link href="/#contact" className="text-gray-700 hover:text-teal-600 transition font-medium">Contact</Link>
           </div>
           <Link
             href="/#contact"
-            className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition"
+            className="bg-gradient-to-r from-teal-500 to-cyan-500 text-white px-6 py-2 rounded-full hover:from-teal-600 hover:to-cyan-600 transition shadow-lg hover:shadow-xl font-semibold"
           >
             Apply Now
           </Link>
@@ -299,7 +310,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
       <div className="container mx-auto px-4 py-6">
         <Link
           href="/"
-          className="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold"
+          className="inline-flex items-center text-teal-600 hover:text-teal-700 font-semibold transition"
         >
           <ArrowLeft className="h-5 w-5 mr-2" />
           Back to Home
@@ -309,14 +320,14 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
       {/* Hero Section */}
       <section className="container mx-auto px-4 py-12">
         <div className="flex items-center gap-6 mb-8">
-          <div className="bg-blue-600 p-6 rounded-2xl">
+          <div className="bg-gradient-to-br from-teal-500 to-cyan-600 p-6 rounded-2xl shadow-lg">
             <Icon className="h-12 w-12 text-white" />
           </div>
           <div>
-            <h1 className="text-5xl font-bold text-gray-900 mb-3">
+            <h1 className="text-5xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent mb-3">
               {service.title}
             </h1>
-            <p className="text-xl text-gray-600">{service.description}</p>
+            <p className="text-xl text-gray-700">{service.description}</p>
           </div>
         </div>
       </section>
@@ -326,8 +337,8 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
         <div className="grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-8">
             {/* Features Card */}
-            <div className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Key Features</h2>
+            <div className="bg-white border border-gray-200 rounded-xl shadow-lg p-8">
+              <h2 className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent mb-6">Key Features</h2>
               <div className="grid md:grid-cols-2 gap-4">
                 {service.features.map((feature: string, idx: number) => (
                   <div key={idx} className="flex items-start gap-3">
@@ -339,12 +350,12 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
             </div>
 
             {/* Eligibility */}
-            <div className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Eligibility Criteria</h2>
+            <div className="bg-white border border-gray-200 rounded-xl shadow-lg p-8">
+              <h2 className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent mb-6">Eligibility Criteria</h2>
               <ul className="space-y-3">
                 {service.eligibility.map((criteria: string, idx: number) => (
                   <li key={idx} className="flex items-start gap-3">
-                    <CheckCircle2 className="h-6 w-6 text-blue-600 flex-shrink-0 mt-1" />
+                    <CheckCircle2 className="h-6 w-6 text-teal-500 flex-shrink-0 mt-1" />
                     <span className="text-gray-700">{criteria}</span>
                   </li>
                 ))}
@@ -352,8 +363,8 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
             </div>
 
             {/* Documents Required */}
-            <div className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Documents Required</h2>
+            <div className="bg-white border border-gray-200 rounded-xl shadow-lg p-8">
+              <h2 className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent mb-6">Documents Required</h2>
               <ul className="space-y-3">
                 {service.documents.map((doc: string, idx: number) => (
                   <li key={idx} className="flex items-start gap-3">
@@ -365,7 +376,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
             </div>
 
             {/* Benefits */}
-            <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl shadow-lg p-8 text-white">
+            <div className="bg-gradient-to-r from-teal-500 to-cyan-600 rounded-xl shadow-lg p-8 text-white">
               <h2 className="text-3xl font-bold mb-6">Benefits & Uses</h2>
               <ul className="space-y-3">
                 {service.benefits.map((benefit: string, idx: number) => (
@@ -380,8 +391,8 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
 
           {/* Sidebar - Application Form */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-xl shadow-lg p-8 sticky top-24">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Apply Now</h3>
+            <div className="bg-white border border-gray-200 rounded-xl shadow-lg p-8 sticky top-24">
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent mb-4">Apply Now</h3>
               <p className="text-gray-600 mb-6">Get instant approval for your {service.title.toLowerCase()}</p>
 
               <form className="space-y-4">
@@ -389,7 +400,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                   <label className="block text-gray-700 font-semibold mb-2">Full Name</label>
                   <input
                     type="text"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                    className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none"
                     placeholder="Your name"
                   />
                 </div>
@@ -397,7 +408,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                   <label className="block text-gray-700 font-semibold mb-2">Email</label>
                   <input
                     type="email"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                    className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none"
                     placeholder="your@email.com"
                   />
                 </div>
@@ -405,7 +416,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                   <label className="block text-gray-700 font-semibold mb-2">Phone</label>
                   <input
                     type="tel"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                    className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none"
                     placeholder="+91 98765 43210"
                   />
                 </div>
@@ -413,13 +424,13 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                   <label className="block text-gray-700 font-semibold mb-2">Loan Amount</label>
                   <input
                     type="text"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                    className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none"
                     placeholder="₹ 5,00,000"
                   />
                 </div>
                 <div>
                   <label className="block text-gray-700 font-semibold mb-2">Employment Type</label>
-                  <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent">
+                  <select className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none">
                     <option>Salaried</option>
                     <option>Self-Employed</option>
                     <option>Business Owner</option>
@@ -427,7 +438,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                 </div>
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition font-semibold"
+                  className="w-full bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white py-3 rounded-lg transition font-semibold shadow-lg shadow-teal-500/50"
                 >
                   Submit Application
                 </button>
@@ -437,19 +448,19 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                 <h4 className="font-bold text-gray-900 mb-4">Need Help?</h4>
                 <div className="space-y-3">
                   <div className="flex items-center gap-3 text-gray-700">
-                    <Phone className="h-5 w-5 text-blue-600" />
+                    <Phone className="h-5 w-5 text-teal-500" />
                     <span>+91 98765 43210</span>
                   </div>
                   <div className="flex items-center gap-3 text-gray-700">
-                    <Mail className="h-5 w-5 text-blue-600" />
+                    <Mail className="h-5 w-5 text-teal-500" />
                     <span>info@equivion.com</span>
                   </div>
                 </div>
               </div>
 
               <Link
-                href="/#contact"
-                className="mt-6 w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition font-semibold flex items-center justify-center gap-2"
+                href="/#emi-calculator"
+                className="mt-6 w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white py-3 rounded-lg transition font-semibold flex items-center justify-center gap-2 shadow-lg shadow-green-500/30"
               >
                 <Calculator className="h-5 w-5" />
                 EMI Calculator
@@ -460,15 +471,15 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-blue-600 text-white py-16 mt-12">
+      <section className="bg-gradient-to-r from-teal-600 to-cyan-700 text-white py-16 mt-12 border-t border-teal-500/20">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-4">Ready to Get Started?</h2>
-          <p className="text-xl mb-8 text-blue-100">
+          <p className="text-xl mb-8 text-teal-100">
             Apply now and get instant approval for your {service.title.toLowerCase()}
           </p>
           <Link
             href="/#contact"
-            className="inline-block bg-white text-blue-600 px-8 py-4 rounded-full hover:bg-blue-50 transition text-lg font-semibold"
+            className="inline-block bg-white text-teal-600 px-8 py-4 rounded-full hover:bg-gray-100 transition text-lg font-semibold shadow-lg shadow-white/20"
           >
             Apply Now
           </Link>
@@ -476,7 +487,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
+      <footer className="bg-gray-900 text-white py-12 border-t border-teal-500/20">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
@@ -488,30 +499,38 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                   height={40}
                   className="object-contain"
                 />
-                <span className="text-xl font-bold">Equivion</span>
+                <span
+                  className="text-xl font-bold text-green-400 tracking-wider uppercase"
+                  style={{
+                    textShadow: '1px 1px 0 rgba(34, 197, 94, 0.2)',
+                    WebkitTextStroke: '0.5px rgba(34, 197, 94, 0.3)'
+                  }}
+                >
+                  Equivion
+                </span>
               </div>
               <p className="text-gray-400">
                 Your trusted partner for all financial needs.
               </p>
             </div>
             <div>
-              <h4 className="font-bold mb-4">Quick Links</h4>
+              <h4 className="font-bold mb-4 text-teal-400">Quick Links</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><Link href="/#services" className="hover:text-white">Services</Link></li>
-                <li><Link href="/#about" className="hover:text-white">About Us</Link></li>
-                <li><Link href="/#contact" className="hover:text-white">Contact</Link></li>
+                <li><Link href="/#services" className="hover:text-teal-400 transition">Services</Link></li>
+                <li><Link href="/#about" className="hover:text-teal-400 transition">About Us</Link></li>
+                <li><Link href="/#contact" className="hover:text-teal-400 transition">Contact</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold mb-4">Services</h4>
+              <h4 className="font-bold mb-4 text-teal-400">Services</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><Link href="/services/business-loan" className="hover:text-white">Business Loan</Link></li>
-                <li><Link href="/services/personal-loan" className="hover:text-white">Personal Loan</Link></li>
-                <li><Link href="/services/home-loan" className="hover:text-white">Home Loan</Link></li>
+                <li><Link href="/services/business-loan" className="hover:text-teal-400 transition">Business Loan</Link></li>
+                <li><Link href="/services/personal-loan" className="hover:text-teal-400 transition">Personal Loan</Link></li>
+                <li><Link href="/services/home-loan" className="hover:text-teal-400 transition">Home Loan</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold mb-4">Contact</h4>
+              <h4 className="font-bold mb-4 text-teal-400">Contact</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>+91 98765 43210</li>
                 <li>info@equivion.com</li>
@@ -519,7 +538,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
               </ul>
             </div>
           </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+          <div className="border-t border-teal-500/20 mt-8 pt-8 text-center text-gray-400">
             <p>&copy; 2024 Equivion. All rights reserved.</p>
           </div>
         </div>
