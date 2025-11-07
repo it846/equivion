@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import {
   Building2,
@@ -116,10 +117,16 @@ export default function HomePage() {
       {/* Header/Navbar */}
       <header className="bg-white shadow-sm sticky top-0 z-50">
         <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center space-x-2">
-            <Landmark className="h-8 w-8 text-blue-600" />
+          <Link href="/" className="flex items-center space-x-3">
+            <Image
+              src="/logo.jpeg"
+              alt="Equivion LLP Logo"
+              width={50}
+              height={50}
+              className="object-contain"
+            />
             <span className="text-2xl font-bold text-gray-900">Equivion</span>
-          </div>
+          </Link>
           <div className="hidden md:flex space-x-6 items-center">
             <div className="relative group">
               <button className="text-gray-600 hover:text-blue-600 transition flex items-center gap-1">
@@ -426,8 +433,14 @@ export default function HomePage() {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <Landmark className="h-6 w-6" />
+              <div className="flex items-center space-x-3 mb-4">
+                <Image
+                  src="/logo.jpeg"
+                  alt="Equivion LLP Logo"
+                  width={40}
+                  height={40}
+                  className="object-contain"
+                />
                 <span className="text-xl font-bold">Equivion</span>
               </div>
               <p className="text-gray-400">
