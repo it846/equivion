@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { use } from "react";
 import {
   Building2,
   User,
@@ -14,6 +17,7 @@ import {
   Calculator,
   ChevronDown
 } from "lucide-react";
+import ApplicationForm from "../../components/ApplicationForm";
 
 // Services list for navigation
 const servicesList = [
@@ -229,8 +233,8 @@ const servicesData: Record<string, any> = {
   }
 };
 
-export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
+export default function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = use(params);
   const service = servicesData[slug];
 
   if (!service) {
@@ -395,54 +399,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               <h3 className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent mb-4">Apply Now</h3>
               <p className="text-gray-600 mb-6">Get instant approval for your {service.title.toLowerCase()}</p>
 
-              <form className="space-y-4">
-                <div>
-                  <label className="block text-gray-700 font-semibold mb-2">Full Name</label>
-                  <input
-                    type="text"
-                    className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none"
-                    placeholder="Your name"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700 font-semibold mb-2">Email</label>
-                  <input
-                    type="email"
-                    className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none"
-                    placeholder="your@email.com"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700 font-semibold mb-2">Phone</label>
-                  <input
-                    type="tel"
-                    className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none"
-                    placeholder="+91 98765 43210"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700 font-semibold mb-2">Loan Amount</label>
-                  <input
-                    type="text"
-                    className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none"
-                    placeholder="₹ 5,00,000"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700 font-semibold mb-2">Employment Type</label>
-                  <select className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none">
-                    <option>Salaried</option>
-                    <option>Self-Employed</option>
-                    <option>Business Owner</option>
-                  </select>
-                </div>
-                <button
-                  type="submit"
-                  className="w-full bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white py-3 rounded-lg transition font-semibold shadow-lg shadow-teal-500/50"
-                >
-                  Submit Application
-                </button>
-              </form>
+              <ApplicationForm serviceTitle={service.title} />
 
               <div className="mt-8 pt-8 border-t border-gray-200">
                 <h4 className="font-bold text-gray-900 mb-4">Need Help?</h4>
@@ -545,16 +502,4 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       </footer>
     </div>
   );
-}
-
-// Generate static params for all services
-export async function generateStaticParams() {
-  return [
-    { slug: "business-loan" },
-    { slug: "personal-loan" },
-    { slug: "balance-transfer" },
-    { slug: "car-loan" },
-    { slug: "home-loan" },
-    { slug: "loan-against-property" }
-  ];
 }

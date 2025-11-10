@@ -19,6 +19,7 @@ import {
   ChevronRight
 } from "lucide-react";
 import EMICalculator from "./components/EMICalculator";
+import ContactForm from "./components/ContactForm";
 
 const services = [
   {
@@ -413,57 +414,7 @@ export default function HomePage() {
               </div>
 
               {/* Contact Form */}
-              <form className="bg-white border border-gray-200 rounded-xl p-8 shadow-lg">
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-gray-700 font-semibold mb-2">Name</label>
-                    <input
-                      type="text"
-                      className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none"
-                      placeholder="Your name"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-gray-700 font-semibold mb-2">Email</label>
-                    <input
-                      type="email"
-                      className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none"
-                      placeholder="your@email.com"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-gray-700 font-semibold mb-2">Phone</label>
-                    <input
-                      type="tel"
-                      className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none"
-                      placeholder="+91 98765 43210"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-gray-700 font-semibold mb-2">Service Interest</label>
-                    <select className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none">
-                      <option>Select a service</option>
-                      {services.map(service => (
-                        <option key={service.id} value={service.id}>{service.title}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-gray-700 font-semibold mb-2">Message</label>
-                    <textarea
-                      rows={4}
-                      className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none"
-                      placeholder="Tell us about your requirements..."
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    className="w-full bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white py-3 rounded-lg transition font-semibold shadow-lg hover:shadow-xl"
-                  >
-                    Submit Application
-                  </button>
-                </div>
-              </form>
+              <ContactForm services={services} />
             </div>
           </div>
         </div>
